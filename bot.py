@@ -12,7 +12,8 @@ def start(message):
     kb = types.InlineKeyboardMarkup(row_width=1)
     btn = types.InlineKeyboardButton(text='Список маршрутов', callback_data='btn1')
     btn1 = types.InlineKeyboardButton(text='О команде CatStep', callback_data= 'btn2')
-    kb.add(btn, btn1)
+    btn2 = types.InlineKeyboardButton(text='Предложить маршрут', callback_data= 'btn3')
+    kb.add(btn, btn1, btn2)
     bot.send_message(message.chat.id, 'Привет! Я Степа - ваш спутник по Санкт-Петербургу! Я помогу вам выбрать интересный маршрут по городу, чтобы отлично провести время! Мяу?', reply_markup=kb)
 #С помощью этого хэндлера бот обрабатывает нажатие кнопки и реагирует на него
 @bot.callback_query_handler(func=lambda callback: callback.data)
@@ -35,6 +36,12 @@ def check_callback_data(callback):
         btn5 = types.KeyboardButton(text='Вернуться в меню')
         marcup.add(btn5)
         bot.send_message(callback.message.chat.id, 'Мы студентки 2-го курса по направлению «Информационные технологии в дизайне» РГПУ им. Герцена создали этот бот по дисциплине «Технологии программирования».',reply_markup=marcup)
+    elif callback.data == "btn3":
+        #bot.send_photo(callback.message.chat.id,r'https://psv4.userapi.com/c909618/u537061732/docs/d53/db5cedfa382e/my.jpg?extra=Hs80Nz8F4QBneBP9ob16Kz_HKAkJW9qZ0emAS3VVoQKMQAGU7iLaMZNeSD_D7pSZCtvc4lNK93WMKGn-gW3LTyy9V7kfY6zyp-OvsjQ1WOJE_8CRE35SSdf-PyUVQMvsSeguJwQWGNoiKuflpkMJp1w')
+        marcup = types.ReplyKeyboardMarkup(resize_keyboard=True)
+        btn5 = types.KeyboardButton(text='Вернуться в меню')
+        marcup.add(btn5)
+        bot.send_message(callback.message.chat.id, 'Если вы хотите предложить собственный маршрут, напишите нам на почту cat_step@gmail.com и мы обязательно его рассмотрим и свяжемся с Вами!',reply_markup=marcup)
 
 #Этот хэндлер обрабатывает сообщение пользователя
 @bot.message_handler(content_types=['text'])
@@ -112,7 +119,8 @@ def get_text(message):
         kb = types.InlineKeyboardMarkup(row_width=1)
         btn = types.InlineKeyboardButton(text='Список маршрутов', callback_data='btn1')
         btn1 = types.InlineKeyboardButton(text='О команде CatStep', callback_data='btn2')
-        kb.add(btn, btn1)
+        btn2 = types.InlineKeyboardButton(text="Предложить маршрут", callback_data='btn3')
+        kb.add(btn, btn1,btn2)
         bot.send_message(message.chat.id,
                          'Привет! Я Степа - ваш спутник по Санкт-Петербургу! Я помогу вам выбрать интересный маршрут по городу, чтобы отлично провести время! Мяу?',
                          reply_markup=kb)
